@@ -32,21 +32,21 @@ def write_state(header, board, path='gamestate.txt'):
 
 
 def explode(board):
-    changed=True
+    changed = True
     while changed:
-        changed=False
+        changed = False
         for r in range(BOARD_ROWS):
             for c in range(BOARD_COLS):
-                cnt,col=board[r][c]
-                if cnt>=CRIT_MASS[(r,c)]:
-                    changed=True
-                    board[r][c]=(cnt-CRIT_MASS[(r,c)],col)
-                    for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
-                        nr, nc = r+dr, c+dc
-                        if 0<=nr<BOARD_ROWS and 0<=nc<BOARD_COLS:
-                            ncnt,ncol=board[nr][nc]
-                            board[nr][nc]=(ncnt+1, col)
-        # conversion happens naturally by writing col
+                cnt, col = board[r][c]
+                if cnt >= CRIT_MASS[(r, c)] and col is not None:
+                    changed = True
+                    new_cnt = cnt - CRIT_MASS[(r, c)]
+                    board[r][c] = (new_cnt, col if new_cnt > 0 else None)
+                    for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                        nr, nc = r + dr, c + dc
+                        if 0 <= nr < BOARD_ROWS and 0 <= nc < BOARD_COLS:
+                            ncnt, _ = board[nr][nc]
+                            board[nr][nc] = (ncnt + 1, col)
     return board
 
 
