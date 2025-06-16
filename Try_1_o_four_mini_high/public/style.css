@@ -1,0 +1,6 @@
+body { display: flex; flex-direction: column; align-items: center; font-family: sans-serif; }
+#board { display: grid; grid-template-rows: repeat(9, 50px); grid-template-columns: repeat(6, 50px); gap: 2px; }
+.cell { width: 50px; height: 50px; background: #eee; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+.orb { width: 12px; height: 12px; border-radius: 50%; position: absolute; }
+.orb.R { background: red; }
+.orb.B { background: blue; }
